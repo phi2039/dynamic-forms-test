@@ -33,8 +33,6 @@ const ShortDateSchema = Yup.date().transform(function(value, originalValue) {
   return value.isValid() ? value.toDate() : invalidDate;
 });
 
-addCustomValidator("chc.shortDate", ShortDateSchema);
-
 const fields = [
   {
     id: "gender",
