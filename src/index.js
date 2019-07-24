@@ -6,7 +6,6 @@ import React, { Fragment } from "react";
 import { render } from "react-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { transformAll, addCustomValidator } from "@overgear/yup-ast";
 
 import Handlebars from "handlebars";
 import Moment from "moment";
@@ -152,22 +151,22 @@ const Field = ({ field, value, error, touched, ...props }) => {
 };
 
 const propFor = field => {
-  const funcPath = [];
+  let prop;
   if (!field.format || field.format === "string") {
-    funcPath.push(["yup.string"]);
+    prop = Yup.string();
   } else if (field.format === "integer") {
-    funcPath.push(["yup.number"]);
-    funcPath.push(["yup.integer"]);
-    funcPath.push(["yup.positive"]);
+    prop = Yup.number()
+      .integer()
+      .positive();
   } else if (field.format === "short-date") {
-    funcPath.push(["chc.shortDate"]);
+    prop = ShortDateSchema;
   } else {
     throw new Error("unknown field type");
   }
   if (!field.optional) {
-    // funcPath.push(["yup.required", "Required"]);
+    prop = prop.required("Required");
   }
-  return transformAll(funcPath);
+  return prop;
 };
 
 const createValidationSchema = fields => {
