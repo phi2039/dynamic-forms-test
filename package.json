@@ -12,7 +12,7 @@
   "dependencies": {
     "@overgear/yup-ast": "1.0.3",
     "formik": "1.5.7",
-    "handlebars": "4.1.2",
+    "handlebars": "4.7.6",
     "moment": "2.24.0",
     "react": "16.8.6",
     "react-dom": "16.8.6",
